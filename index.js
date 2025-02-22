@@ -15,13 +15,14 @@ const server = http.createServer(app);
 // Initialize Socket.IO
 const io = new Server(server, { cors: { origin: "http://localhost:5173" } });
 
-// Middleware
-app.use(
-  cors({
-    origin: ["http://localhost:5173"],
-    credentials: true,
-  })
-);
+app.use(cors({
+  origin: ['http://localhost:5173',
+    'https://trellox-d14d8.web.app',
+    'https://trellox-d14d8.firebaseapp.com'
+    
+  ],
+  credentials: true
+}));
 app.use(express.json());
 
 // Token verification
@@ -67,7 +68,7 @@ let db, userCollection, taskCollection;
 // Connect to MongoDB
 async function connectDB() {
   try {
-    await client.connect();
+    // await client.connect();
     db = client.db("trellox");
     userCollection = db.collection("users");
     taskCollection = db.collection("tasks");
